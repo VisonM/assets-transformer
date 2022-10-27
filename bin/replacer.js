@@ -31,10 +31,11 @@ const resolveSingleFile = async (filePath) => {
     "\\$&"
   );
   const regex = new RegExp(
-    `(["'(])(https?:\/\/(img|media)(?!${rootDomainRegex}).*\\.[^"')]*)(["')])`,
+    `(["'(])(https?:\/\/(img|media)(?!${rootDomainRegex})[^"')]*\\.[^"')]*)(["')])`,
     "g"
   );
   content.replace(regex, (_, start, match, __, end) => {
+    // console.log(match)
     pending.push(replaceMatch(match, start, end));
   });
   const results = await Promise.all(pending);
